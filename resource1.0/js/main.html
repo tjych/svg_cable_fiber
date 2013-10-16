@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+
+		
+
+		<title>util</title>
+		<style type="text/css">
+		</style>
+		<script src="jquery-1.10.2.js" type="text/javascript"></script>
+		<script src="hashmap.js" type="text/javascript"></script>
+		<script src="constant.js" type="text/javascript"></script>
+		<script src="util.js" type="text/javascript"></script>
+		<script src="tube.js" type="text/javascript"></script>
+		<script src="select.js" type="text/javascript"></script>
+			
+
+		<script type="text/javascript">
+		
+			function init(){
+
+				var svgroot = document.getElementById("svgroot");
+				var svgdoc = svgroot.ownerDocument;
+				var container = document.getElementById("container");
+				var fiberDistance = 15;
+				var tubeDistance = 500;
+
+				//初始化类
+				resource.util.init({
+					getDOMDocument: function() { return svgdoc; },
+					getDOMContainer: function() { return container; },
+					getSVGRoot: function() { return svgroot; },					
+					getSVGContent: function() { return svgcontent; }
+				});
+				var group = document.getElementById("svgroot");
+				
+				
+				//解析数据
+				
+				
+				
+				var cable = new resource.model.Cable({					 	 	
+  			    				cableId:'a0000',				
+  							    tubeNum:12,							
+  			                    fiberNumPerTube : 12,					
+  			                    x : 200 ,				 			
+  								y : 200	,
+  								fiberDistance : fiberDistance,
+  								cableDistance : tubeDistance,
+  								subCables:[
+  									{
+  										cableId:'b0001',		     	   	
+		  							    tubeNum:6,				   	  		
+		  			                    fiberNumPerTube:12,		   			
+		  			                    x : 200 + tubeDistance ,   		    		 			
+		  								y : 10	,                
+		  								fiberDistance :  fiberDistance ,
+		  								cableDistance :  tubeDistance 										
+  									},{
+  										cableId:'b0002',		     	   	
+		  							    tubeNum:6,				   	  		
+		  			                    fiberNumPerTube:12,		   			
+		  			                    x : 200 + tubeDistance ,   		    		 			
+		  								y : 10 + 12 * fiberDistance * 6 + 300,                
+		  								fiberDistance :  fiberDistance ,
+		  								cableDistance :  tubeDistance 		
+  									}
+  								]
+				});				
+				
+				for(var i = 0 ; i < 6 ; i ++){
+					cable.addSubTube(i,{
+						subTubes:[
+							{	
+								cableId:'b0001',
+								tubeIndex: i ,
+								tubeColor : resource.constant.COLORS[i % 12],
+								fiberNum  : 12,
+								x : 200 + tubeDistance,
+								y : 10 + fiberDistance * 12 * i,
+								width   : 15,
+								height  : fiberDistance * 12,
+								lfiberNum : 12,
+								rfiberNum : 12,
+								isFirst : false
+							}	
+						]
+					},{
+						relationshipLineProp:[
+							{ cableAId:"a0000",tubeAIndex:i,fiberAIndex:0,cableBId:"b0001",tubeBIndex:i,fiberBIndex:0    },
+							{ cableAId:"a0000",tubeAIndex:i,fiberAIndex:1,cableBId:"b0001",tubeBIndex:i,fiberBIndex:1    },
+							{ cableAId:"a0000",tubeAIndex:i,fiberAIndex:2,cableBId:"b0001",tubeBIndex:i,fiberBIndex:2    },
+							{ cableAId:"a0000",tubeAIndex:i,fiberAIndex:3,cableBId:"b0001",tubeBIndex:i,fiberBIndex:3    },
+							{ cableAId:"a0000",tubeAIndex:i,fiberAIndex:4,cableBId:"b0001",tubeBIndex:i,fiberBIndex:4    },
+							{ cableAId:"a0000",tubeAIndex:i,fiberAIndex:5,cableBId:"b0001",tubeBIndex:i,fiberBIndex:5    },
+							{ cableAId:"a0000",tubeAIndex:i,fiberAIndex:6,cableBId:"b0001",tubeBIndex:i,fiberBIndex:6    },
+							{ cableAId:"a0000",tubeAIndex:i,fiberAIndex:7,cableBId:"b0001",tubeBIndex:i,fiberBIndex:7    },
+							{ cableAId:"a0000",tubeAIndex:i,fiberAIndex:8,cableBId:"b0001",tubeBIndex:i,fiberBIndex:8    },
+							{ cableAId:"a0000",tubeAIndex:i,fiberAIndex:9,cableBId:"b0001",tubeBIndex:i,fiberBIndex:9    },
+							{ cableAId:"a0000",tubeAIndex:i,fiberAIndex:10,cableBId:"b0001",tubeBIndex:i,fiberBIndex:10  },
+							{ cableAId:"a0000",tubeAIndex:i,fiberAIndex:11,cableBId:"b0001",tubeBIndex:i,fiberBIndex:11  }
+							
+						]
+					});
+				
+				}
+				
+				
+				for(var i = 6 ; i < 12 ; i ++){
+					cable.addSubTube(i,{
+						subTubes:[
+							{	
+								cableId:'b0002',
+								tubeIndex: (i-6) ,
+								tubeColor : resource.constant.COLORS[(i-6) % 12],
+								fiberNum  : 12,
+								x : 200 + tubeDistance,
+								y : 10 + 12 * fiberDistance * i + 300,
+								width   : 15,
+								height  : fiberDistance * 12,
+								lfiberNum : 12,
+								rfiberNum : 12,
+								isFirst : false
+							}	
+						]
+					},{
+						relationshipLineProp:[
+							{ cableAId:"a0000",tubeAIndex:i,fiberAIndex:0,cableBId:"b0002",tubeBIndex:(i-6),fiberBIndex:0    },
+							{ cableAId:"a0000",tubeAIndex:i,fiberAIndex:1,cableBId:"b0002",tubeBIndex:(i-6),fiberBIndex:1    },
+							{ cableAId:"a0000",tubeAIndex:i,fiberAIndex:2,cableBId:"b0002",tubeBIndex:(i-6),fiberBIndex:2    },
+							{ cableAId:"a0000",tubeAIndex:i,fiberAIndex:3,cableBId:"b0002",tubeBIndex:(i-6),fiberBIndex:3    },
+							{ cableAId:"a0000",tubeAIndex:i,fiberAIndex:4,cableBId:"b0002",tubeBIndex:(i-6),fiberBIndex:4    },
+							{ cableAId:"a0000",tubeAIndex:i,fiberAIndex:5,cableBId:"b0002",tubeBIndex:(i-6),fiberBIndex:5    },
+							{ cableAId:"a0000",tubeAIndex:i,fiberAIndex:6,cableBId:"b0002",tubeBIndex:(i-6),fiberBIndex:6    },
+							{ cableAId:"a0000",tubeAIndex:i,fiberAIndex:7,cableBId:"b0002",tubeBIndex:(i-6),fiberBIndex:7    },
+							{ cableAId:"a0000",tubeAIndex:i,fiberAIndex:8,cableBId:"b0002",tubeBIndex:(i-6),fiberBIndex:8    },
+							{ cableAId:"a0000",tubeAIndex:i,fiberAIndex:9,cableBId:"b0002",tubeBIndex:(i-6),fiberBIndex:9    },
+							{ cableAId:"a0000",tubeAIndex:i,fiberAIndex:10,cableBId:"b0002",tubeBIndex:(i-6),fiberBIndex:10  },
+							{ cableAId:"a0000",tubeAIndex:i,fiberAIndex:11,cableBId:"b0002",tubeBIndex:(i-6),fiberBIndex:11  }
+							
+						]
+					});
+				
+				}
+				
+				
+				
+				//cable.buildSubCableAuto();				
+				
+				//cable.buildSubCableAuto();
+				//console.log(cable.subCableMap.size());
+				//console.log(cable.subCableMap.keys() );
+				
+				var values = cable.subCableMap.values();
+				for(var i = 0 ; i < 1 ; i ++){
+					var tempCable = values[i];
+					tempCable.addSubCable({
+						subCables:[
+  									{
+  										cableId:'c0001',				
+		  							    tubeNum: 1,							
+		  			                    fiberNumPerTube:4,					
+		  			                    x : 200 + tubeDistance * 2 ,				 			
+		  								y : 100	,
+		  								fiberDistance :  fiberDistance,
+		  								cableDistance :  tubeDistance  										
+  									},
+  									{
+  										cableId:'d0001',				
+		  							    tubeNum: 1,							
+		  			                    fiberNumPerTube:12,					
+		  			                    x : 200 + tubeDistance * 2 ,				 			
+		  								y : 100  + fiberDistance * 4 *2	,
+		  								fiberDistance :  fiberDistance ,
+		  								cableDistance :  tubeDistance  										
+  									}
+  						]
+					});
+								tempCable.addSubTube(0,{
+									subTubes:[
+										{	
+											cableId:'c0001',
+											tubeIndex: 0 ,
+											tubeColor : resource.constant.COLORS[5 % 12],
+											fiberNum  : 4,
+											x : 200 + tubeDistance  * 2,
+											y : 100  ,
+											width   : 15,
+											height  : fiberDistance * 4,
+											lfiberNum : 4,
+											rfiberNum : 4,
+											isFirst : false
+										}
+									]
+								},{
+									relationshipLineProp:[
+										{ cableAId:"b0001",tubeAIndex:0, fiberAIndex:0,cableBId:"c0001",tubeBIndex:0, fiberBIndex:0     },
+										{ cableAId:"b0001",tubeAIndex:0, fiberAIndex:1,cableBId:"c0001",tubeBIndex:0, fiberBIndex:1     }
+									]
+								});
+								
+								tempCable.addSubTube(1,{
+									subTubes:[
+										{	
+											cableId:'d0001',
+											tubeIndex: 0 ,
+											tubeColor : resource.constant.COLORS[6 % 12],
+											fiberNum  : 12,
+											x : 200 + tubeDistance  * 2,
+											y : 100  + fiberDistance * 4 * 2,
+											width   : 15,
+											height  : fiberDistance * 12,
+											lfiberNum : 4,
+											rfiberNum : 4,
+											isFirst : false
+										}
+									]
+								},{
+									relationshipLineProp:[
+										{ cableAId:"b0001",tubeAIndex:1, fiberAIndex:0,cableBId:"d0001",tubeBIndex:0, fiberBIndex:0     },
+										{ cableAId:"b0001",tubeAIndex:1, fiberAIndex:1,cableBId:"d0001",tubeBIndex:0, fiberBIndex:1     },
+										{ cableAId:"b0001",tubeAIndex:1, fiberAIndex:2,cableBId:"d0001",tubeBIndex:0, fiberBIndex:2     },
+										{ cableAId:"b0001",tubeAIndex:1, fiberAIndex:3,cableBId:"d0001",tubeBIndex:0, fiberBIndex:3     },
+										{ cableAId:"b0001",tubeAIndex:1, fiberAIndex:4,cableBId:"d0001",tubeBIndex:0, fiberBIndex:4     },
+										{ cableAId:"b0001",tubeAIndex:1, fiberAIndex:5,cableBId:"d0001",tubeBIndex:0, fiberBIndex:5     },
+										{ cableAId:"b0001",tubeAIndex:1, fiberAIndex:6,cableBId:"d0001",tubeBIndex:0, fiberBIndex:6     },
+										{ cableAId:"b0001",tubeAIndex:1, fiberAIndex:7,cableBId:"d0001",tubeBIndex:0, fiberBIndex:7     }
+									]
+								});
+				}			
+				
+				
+					for(var i = 1 ; i < 2 ; i ++){
+					var tempCable = values[i];
+					tempCable.addSubCable({
+						subCables:[
+  									{
+  										cableId:'e0001',				
+		  							    tubeNum: 1,							
+		  			                    fiberNumPerTube:4,					
+		  			                    x : 200 + tubeDistance * 2 ,				 			
+		  								y : 100  + fiberDistance * 4 *2  + 300 ,
+		  								fiberDistance :  fiberDistance,
+		  								cableDistance :  tubeDistance  										
+  									},
+  									{
+  										cableId:'f0001',				
+		  							    tubeNum: 1,							
+		  			                    fiberNumPerTube:12,					
+		  			                    x : 200 + tubeDistance * 2 ,				 			
+		  								y : 100  + fiberDistance * 4 *2  + 300 + 200	,
+		  								fiberDistance :  fiberDistance ,
+		  								cableDistance :  tubeDistance  										
+  									}
+  						]
+					});
+					
+					tempCable.addSubTube(0,{
+									subTubes:[
+										{	
+											cableId:'e0001',
+											tubeIndex: 0 ,
+											tubeColor : resource.constant.COLORS[5 % 12],
+											fiberNum  : 4,
+											x : 200 + tubeDistance  * 2,
+											y : 100  + fiberDistance * 4 *2  + 300 ,
+											width   : 15,
+											height  : fiberDistance * 4,
+											lfiberNum : 4,
+											rfiberNum : 4,
+											isFirst : false
+										}
+									]
+								},{
+									relationshipLineProp:[
+										{ cableAId:"b0002",tubeAIndex:0, fiberAIndex:0,cableBId:"e0001",tubeBIndex:0, fiberBIndex:0     },
+										{ cableAId:"b0002",tubeAIndex:0, fiberAIndex:1,cableBId:"e0001",tubeBIndex:0, fiberBIndex:1     }
+									]
+								});
+																
+								tempCable.addSubTube(2,{
+									subTubes:[
+										{	
+											cableId:'f0001',
+											tubeIndex: 0 ,
+											tubeColor : resource.constant.COLORS[6 % 12],
+											fiberNum  : 12,
+											x : 200 + tubeDistance  * 2,
+											y : 100  + fiberDistance * 4 *2  + 300 + 200,
+											width   : 15,
+											height  : fiberDistance * 12,
+											lfiberNum : 4,
+											rfiberNum : 4,
+											isFirst : false
+										}
+									]
+								},{
+									relationshipLineProp:[
+										{ cableAId:"b0002",tubeAIndex:2, fiberAIndex:0,cableBId:"f0001",tubeBIndex:0, fiberBIndex:0     },
+										{ cableAId:"b0002",tubeAIndex:2, fiberAIndex:1,cableBId:"f0001",tubeBIndex:0, fiberBIndex:1     },
+										{ cableAId:"b0002",tubeAIndex:2, fiberAIndex:2,cableBId:"f0001",tubeBIndex:0, fiberBIndex:2     },
+										{ cableAId:"b0002",tubeAIndex:2, fiberAIndex:3,cableBId:"f0001",tubeBIndex:0, fiberBIndex:3     },
+										{ cableAId:"b0002",tubeAIndex:2, fiberAIndex:4,cableBId:"f0001",tubeBIndex:0, fiberBIndex:4     },
+										{ cableAId:"b0002",tubeAIndex:2, fiberAIndex:5,cableBId:"f0001",tubeBIndex:0, fiberBIndex:5     },
+										{ cableAId:"b0002",tubeAIndex:2, fiberAIndex:6,cableBId:"f0001",tubeBIndex:0, fiberBIndex:6     },
+										{ cableAId:"b0002",tubeAIndex:2, fiberAIndex:7,cableBId:"f0001",tubeBIndex:0, fiberBIndex:7     }
+									]
+								});
+				}		
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+					
+				cable.drawInSvg(group);				
+				resource.select.init(document.getElementById("container"),cable);
+			}	
+			
+			$(document).ready(function(){
+				init();
+			});
+			
+			var currentZoom = 1;
+
+			function zoomin(){
+				currentZoom -= 0.2;
+				var svgroot = document.getElementById("svgroot");			
+				resource.util.assginAttribute(svgroot, {
+					width: 2000*currentZoom,
+					height: 3000*currentZoom,
+					viewBox: '0 0 2000 3000'
+				});
+			}
+			
+
+			function zoomout(){
+				currentZoom += 0.2;
+				var svgroot = document.getElementById("svgroot");			
+				resource.util.assginAttribute(svgroot, {
+					width:  2000*currentZoom,
+					height: 3000*currentZoom,
+					viewBox: '0 0 2000 3000'
+				});
+			}
+
+			function getResolution(){
+				var svgcontent = document.getElementById("svgroot");
+				var height = svgcontent.getAttribute('height');
+				var width = svgcontent.getAttribute('width');
+				return {
+					'w':width,
+					'h':height
+				};
+			}
+			
+			function mouseOver(evt){				
+				 evt.target.setAttributeNS(null,"stroke-width","5px");
+			}
+			
+			function mouseOut(evt){
+				 evt.target.setAttributeNS(null,"stroke-width","1px");
+			}
+			
+			function onclick(evt){
+				 evt.target.setAttributeNS(null,"stroke-width","1px");
+			}
+			function print123(){
+				var headstr = "<html><head><title></title></head><body>";
+				var footstr = "</body>";  
+				var printData = document.getElementById("container").innerHTML; 
+				var oldHtml = document.body.innerHTML; 
+				document.body.innerHTML = headstr+printData+footstr;  
+				window.print();
+				document.body.innerHTML = oldstr;  
+			}
+		</script>
+
+	</head>
+
+	<body>
+
+		<div>
+			<input type="button" onclick="zoomin()" value="缩小">
+			<input type="button" onclick="zoomout()" value="放大">
+			<input type="button" onclick="print123()" value="打印">
+		</div>
+		<div id="container" style="overflow: auto;
+			 position:absolute;
+			 display: inline-table-cell;
+			 background-color: #9BCD9B;
+			 border: 1px solid #808080;
+			 top: 40px;
+			 left: 5px;
+			 bottom: 5px;
+			 right: 5px;
+			 width:2000;
+			 height:3000;
+			 ">
+			<svg  xmlns  = "http://www.w3.org/2000/svg"	
+			      width  = "2000"
+				  height = "3000"
+				  id     = "svgroot"		
+				  style  = "fill:#ffffff;stroke-width:1;stroke:rgb(0,0,0);"		
+				  viewBox = "0 0 2000 3000"	
+				  >
+			   <g id="group1">
+				  
+			   </g>
+			</svg>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+
+		
+		<script type="text/javascript">
+		
+		</script>
+
+	</head>
+
+	<body>
+
+		<div>
+			<input type="button" onclick="zoomin()" value="缩小">
+			<input type="button" onclick="zoomout()" value="放大">
+			<input type="button" onclick="print()" value="打印">
+		</div>
+		<div id="container" style="overflow: auto;
+			 position:absolute;
+			 display: inline-table-cell;
+			 background-color: #9BCD9B;
+			 border: 1px solid #808080;
+			 top: 40px;
+			 left: 5px;
+			 bottom: 5px;
+			 right: 5px;
+			 width:1000;
+			 height:2000;
+			 ">
+			<svg  xmlns  = "http://www.w3.org/2000/svg"	
+			      width  = "1000"
+				  height = "2000"
+				  id     = "svgroot"		
+				  style  = "fill:#ffffff;stroke-width:1;stroke:rgb(0,0,0);"		
+				  viewBox = "0 0 1000 2000"	
+				  >
+			   <g id="group1">
+				  
+			   			<rect></rect>
+
+
+			   </g>
+			</svg>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+
+		
+
+		<title>util</title>
+	
+
+		<script src="jquery-1.10.2.js" type="text/javascript"></script>
+		<script src="hashmap.js" type="text/javascript"></script>
+		<script src="constant.js" type="text/javascript"></script>
+		<script src="util.js" type="text/javascript"></script>
+		<script src="tube.js" type="text/javascript"></script>
+		<script src="select.js" type="text/javascript"></script>
+
+		<script type="text/javascript">
+		
+			function init(){
+
+				var svgroot = document.getElementById("svgroot");
+				var svgdoc = svgroot.ownerDocument;
+				var container = document.getElementById("container");
+				var fiberDistance = 10;
+				var tubeDistance = 500;
+
+				//初始化类
+				resource.util.init({
+					getDOMDocument: function() { return svgdoc; },
+					getDOMContainer: function() { return container; },
+					getSVGRoot: function() { return svgroot; },					
+					getSVGContent: function() { return svgcontent; }
+				});
+	var group = document.getElementById("group1");
+	var firstX = 100;
+	var firstY = 100;
+	for(var i = 0 ; i < 2 ; i ++){
+		firstX = 200 ;
+		firstY = 100 + i * fiberDistance * 24 ;
+	
+				var testTube = new resource.model.Tube({
+					cableId:'a0000'+i,
+					tubeIndex:0,
+					tubeColor : resource.constant.COLORS[ i % 12],
+					fiberNum  : 24,
+					x : firstX,
+					y : firstY,
+					width : 15,
+					height: fiberDistance * 24,
+					lfiberNum : 24,
+					rfiberNum : 24,
+					isFirst:true,
+					subTubes:[
+						{	
+							cableId:'b0000'+i,
+							tubeIndex:0,
+							tubeColor : resource.constant.COLORS[1],
+							fiberNum  : 12,
+							x :  10 + tubeDistance,
+							y : 10 + firstY + fiberDistance * 12 * i,
+							width   : 15,
+							height  : fiberDistance * 12,
+							lfiberNum : 12,
+							rfiberNum : 12,
+							isFirst : false
+						},{
+							cableId:'b0001'+i,
+							tubeIndex : 0,
+							tubeColor : resource.constant.COLORS[2],
+							fiberNum  : 12,
+							x : 10 + tubeDistance,
+							y : 130 + firstY + fiberDistance * 12 * i,
+							width : 15,
+							height: fiberDistance * 12,
+							lfiberNum : 12,
+							rfiberNum : 12,
+							isFirst : false
+						}						
+					],
+					relationshipLineProp:[
+						{ cableAId:"a0000"+i,tubeAIndex:0,fiberAIndex:0,cableBId:"b0000"+i,tubeBIndex:0,fiberBIndex:0    },
+						{ cableAId:"a0000"+i,tubeAIndex:0,fiberAIndex:1,cableBId:"b0000"+i,tubeBIndex:0,fiberBIndex:1    },
+						{ cableAId:"a0000"+i,tubeAIndex:0,fiberAIndex:2,cableBId:"b0000"+i,tubeBIndex:0,fiberBIndex:2    },
+						{ cableAId:"a0000"+i,tubeAIndex:0,fiberAIndex:3,cableBId:"b0000"+i,tubeBIndex:0,fiberBIndex:3    },
+						{ cableAId:"a0000"+i,tubeAIndex:0,fiberAIndex:4,cableBId:"b0000"+i,tubeBIndex:0,fiberBIndex:4    },
+						{ cableAId:"a0000"+i,tubeAIndex:0,fiberAIndex:5,cableBId:"b0000"+i,tubeBIndex:0,fiberBIndex:5    },
+						{ cableAId:"a0000"+i,tubeAIndex:0,fiberAIndex:6,cableBId:"b0000"+i,tubeBIndex:0,fiberBIndex:6    },
+						{ cableAId:"a0000"+i,tubeAIndex:0,fiberAIndex:7,cableBId:"b0000"+i,tubeBIndex:0,fiberBIndex:7    },
+						{ cableAId:"a0000"+i,tubeAIndex:0,fiberAIndex:8,cableBId:"b0000"+i,tubeBIndex:0,fiberBIndex:8    },
+						{ cableAId:"a0000"+i,tubeAIndex:0,fiberAIndex:9,cableBId:"b0000"+i,tubeBIndex:0,fiberBIndex:9    },
+						{ cableAId:"a0000"+i,tubeAIndex:0,fiberAIndex:10,cableBId:"b0000"+i,tubeBIndex:0,fiberBIndex:10  },
+						{ cableAId:"a0000"+i,tubeAIndex:0,fiberAIndex:11,cableBId:"b0000"+i,tubeBIndex:0,fiberBIndex:11  },
+						{ cableAId:"a0000"+i,tubeAIndex:0,fiberAIndex:12,cableBId:"b0001"+i,tubeBIndex:0,fiberBIndex:0   },
+						{ cableAId:"a0000"+i,tubeAIndex:0,fiberAIndex:13,cableBId:"b0001"+i,tubeBIndex:0,fiberBIndex:1   },
+						{ cableAId:"a0000"+i,tubeAIndex:0,fiberAIndex:14,cableBId:"b0001"+i,tubeBIndex:0,fiberBIndex:2   },
+						{ cableAId:"a0000"+i,tubeAIndex:0,fiberAIndex:15,cableBId:"b0001"+i,tubeBIndex:0,fiberBIndex:3   },
+						{ cableAId:"a0000"+i,tubeAIndex:0,fiberAIndex:16,cableBId:"b0001"+i,tubeBIndex:0,fiberBIndex:4   },
+						{ cableAId:"a0000"+i,tubeAIndex:0,fiberAIndex:17,cableBId:"b0001"+i,tubeBIndex:0,fiberBIndex:5   },
+						{ cableAId:"a0000"+i,tubeAIndex:0,fiberAIndex:18,cableBId:"b0001"+i,tubeBIndex:0,fiberBIndex:6   },
+						{ cableAId:"a0000"+i,tubeAIndex:0,fiberAIndex:19,cableBId:"b0001"+i,tubeBIndex:0,fiberBIndex:7   },
+						{ cableAId:"a0000"+i,tubeAIndex:0,fiberAIndex:20,cableBId:"b0001"+i,tubeBIndex:0,fiberBIndex:8   },
+						{ cableAId:"a0000"+i,tubeAIndex:0,fiberAIndex:21,cableBId:"b0001"+i,tubeBIndex:0,fiberBIndex:9   },
+						{ cableAId:"a0000"+i,tubeAIndex:0,fiberAIndex:22,cableBId:"b0001"+i,tubeBIndex:0,fiberBIndex:10  },
+						{ cableAId:"a0000"+i,tubeAIndex:0,fiberAIndex:23,cableBId:"b0001"+i,tubeBIndex:0,fiberBIndex:11  }
+					]
+				});
+
+testTube.drawInSvg(group,true);
+				
+	}	
+			
+				
+
+				
+				//testTube1.drawInSvg(group);
+				//testTube2.drawInSvg(group);
+				//testTube3.drawInSvg(group);
+
+				//alert(resource.constant.COLORS.length + ":" + resource.constant.COLORS[0] + ":" + (0 % 11));
+				/*
+				for(var i = 0 ; i < 10000 ; i++){
+					 testTube2 = new resource.model.Tube({
+						tubeColor : resource.constant.COLORS[2],
+						fiberNum  : 8,
+						x : 10 + i ,
+						y : 200 +  i* 2,
+						width : 10,
+						height: 120,
+						lfiberNum : 8,
+						rfiberNum : 8,
+						isFirst:true
+					});
+					testTube2.drawInSvg(group);
+				}*/
+
+			}	
+
+
+			$(document).ready(function(){
+				
+				resource.select.init(document.getElementById("container"));
+				init();
+			});
+			
+			var currentZoom = 1;
+
+			function zoomin(){
+				currentZoom -= 0.2;
+				var svgroot = document.getElementById("svgroot");			
+				resource.util.assginAttribute(svgroot, {
+					width: 1000*currentZoom,
+					height: 2000*currentZoom,
+					viewBox: '0 0 1000 2000'
+				});
+			}
+			
+
+			function zoomout(){
+				currentZoom += 0.2;
+				var svgroot = document.getElementById("svgroot");
+			
+				resource.util.assginAttribute(svgroot, {
+					width: 1000*currentZoom,
+					height: 2000*currentZoom,
+					viewBox: '0 0 1000 2000'
+				});
+			}
+
+			function getResolution(){
+				var svgcontent = document.getElementById("svgroot");
+				var height = svgcontent.getAttribute('height');
+				var width = svgcontent.getAttribute('width');
+				return {
+					'w':width,
+					'h':height
+				};
+			}
+
+		</script>
+
+	</head>
+
+	<body>
+
+		<div>
+			<input type="button" onclick="zoomin()" value="缩小">
+			<input type="button" onclick="zoomout()" value="放大">
+		</div>
+		<div id="container" style="overflow: auto;
+			 position:absolute;
+			 display: inline-table-cell;
+			 background-color: #9BCD9B;
+			 border: 1px solid #808080;
+			 top: 40px;
+			 left: 5px;
+			 bottom: 5px;
+			 right: 5px;
+			 width:1000;
+			 height:2000;
+			 ">
+			<svg  xmlns  = "http://www.w3.org/2000/svg"	
+			      width  = "1000"
+				  height = "2000"
+				  id     = "svgroot"		
+				  style  = "fill:#ffffff;stroke-width:1;stroke:rgb(0,0,0);"		
+				  viewBox = "0 0 1000 2000"	
+				  >
+			   <g id="group1">
+				  
+			   </g>
+			</svg>
+		</div>
+	</body>
+</html>
